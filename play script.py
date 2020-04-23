@@ -1,4 +1,3 @@
-
 #
 #
 #        Frogger
@@ -18,7 +17,7 @@ def main():
 
     pygame.init()
      
-    fps = 60
+    fps = 30
     fpsClock = pygame.time.Clock()
      
     width, height = 516,680
@@ -38,7 +37,7 @@ def main():
     deltax=0
     deltay=0
     shift=0
-    lane_list = [420,375,323,278,188,135,75]
+    lane_list = [420,375,323,283,188,125,70]
 
     #Load up the images
     background_image=pygame.image.load("background.png").convert_alpha()
@@ -50,9 +49,9 @@ def main():
 
     car_type2=spread_sheet.subsurface(115,203,50,40)
 
-    car_type3=spread_sheet.subsurface(45,128,120,47)
+    car_type3=spread_sheet.subsurface(52,128,120,47)
 
-    car_type4=spread_sheet.subsurface(105,270,55,45)
+    car_type4=spread_sheet.subsurface(115,279,45,33)
 
     log_type1=spread_sheet.subsurface(277,341,223,51)
 
@@ -71,18 +70,18 @@ def main():
         if event.type == pygame.KEYDOWN:
                 key = event.dict['key']
                 if key == pygame.K_UP:
-                    deltay-=20
+                    deltay-=29
                     for i in range(0,200,100):
                         shift+=i
                      
                 elif key == pygame.K_LEFT:
-                   deltax-=20
+                   deltax-=29
                    left=True
                 elif key == pygame.K_RIGHT:
-                   deltax+=20
+                   deltax+=29
                    left=False
                 elif key == pygame.K_DOWN:
-                    deltay+=20
+                    deltay+=29
                     for i in range(0,200,100):
                         shift+=i
                 else:
@@ -215,6 +214,7 @@ def main():
       car28.y= lane_list[3]
 
       #Lane 5 (Water1)
+      pygame.draw.rect(screen, (0,0,255),(30,50,516,150))
       #First=startpos, second=biggeststart, third=distance
       log1=log_type1.get_rect()
       log1.x=(1000-xpos1)%1900-450
@@ -272,11 +272,12 @@ def main():
       frog_rect=frog.get_rect()
 #coordinates for the new rect
       frog_rect.x=258+deltax
-      frog_rect.y=590+deltay
+      frog_rect.y=500+deltay
       
       # Draw.
 
       screen.blit(background_image,[0,0])
+      #water=pygame.draw.rect(screen, (0,0,255),(0,57,516,187))
 
 
 
@@ -345,11 +346,22 @@ def main():
 
       screen.blit(frog,frog_rect)
 
-      collide=frog_rect.collidelist(car_list)
+      for i in range(0,28):
+      
+          collide_car=frog_rect.collidelist(car_list)
+          if collide_car == i:
+              deltax=deltax-deltax
+              deltay=deltay-deltay
 
-      if collide == 0:
-          deltax=deltax-deltax
-          deltay=deltay-deltay
+      collide_log=frog_rect.collidelist(log_list)
+      if collide_log == 0 or collide_log == 1 or collide_log == 2:
+         deltax-=2
+
+      if collide_log == 3 or collide_log == 4 or collide_log == 5 or collide_log == 6:
+         deltax+=2
+
+      if collide_log == 7 or collide_log == 8 or collide_log == 9:
+         deltax-=2
 
       
       
@@ -357,4 +369,5 @@ def main():
       fpsClock.tick(fps)
 
 main()
+
 

@@ -17,7 +17,7 @@ def main():
 
     pygame.init()
      
-    fps = 30
+    fps = 60
     fpsClock = pygame.time.Clock()
      
     width, height = 516,680
@@ -38,6 +38,8 @@ def main():
     deltay=0
     shift=0
     lane_list = [420,375,323,283,188,125,70]
+    start_x=258
+    start_y=500
 
     #Load up the images
     background_image=pygame.image.load("background.png").convert_alpha()
@@ -271,19 +273,13 @@ def main():
 #converted frog subsurface
       frog_rect=frog.get_rect()
 #coordinates for the new rect
-      frog_rect.x=258+deltax
-      frog_rect.y=500+deltay
+      frog_rect.x=start_x+deltax
+      frog_rect.y=start_y+deltay
       
       # Draw.
 
       screen.blit(background_image,[0,0])
-      #water=pygame.draw.rect(screen, (0,0,255),(0,57,516,187))
-
-
-
-
-
-
+      water=pygame.draw.rect(screen, (0,0,255),(0,57,516,187))
 
 #when you blit the converted image the format is (loaded_image,converted_image)
                      
@@ -363,11 +359,17 @@ def main():
       if collide_log == 7 or collide_log == 8 or collide_log == 9:
          deltax-=2
 
+      if frog_rect.x < 0:
+         deltax=deltax-deltax
+         deltay=deltay-deltay
+
+      if frog_rect.x > 516:
+         deltax=deltax-deltax
+         deltay=deltay-deltay
+
       
       
       pygame.display.flip()
       fpsClock.tick(fps)
 
 main()
-
-

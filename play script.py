@@ -332,6 +332,8 @@ def main():
 
       #Lane 7 (Water3)
       screen.blit(log_type2,log8)
+      screen.blit(log_type2,log9)
+      screen.blit(log_type2,log10)
       
 
       xpos1+= speed1

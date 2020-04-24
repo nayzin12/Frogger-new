@@ -11,9 +11,17 @@ import sys
 import pygame
 from pygame.locals import *
 
+WHITE = (255, 255, 255)
+
+
 
      
 def main():
+
+    def texts(score,location_x,location_y,text,colour,size):
+        font=pygame.font.Font(None,size)
+        scoretext=font.render(text+str(score), 1,colour)
+        screen.blit(scoretext, (location_x, location_y))
 
     pygame.init()
      
@@ -31,6 +39,7 @@ def main():
     speed1 = 2
     speed2 = 3
     speed3 = 4
+    lives = 3
     xpos1=0
     xpos2=0
     xpos3=0
@@ -131,13 +140,13 @@ def main():
       car8.x=(1100+xpos2)%1100-500
       car8.y= lane_list[1]
 
-      car9=car_type2.get_rect()
-      car9.x=(1300+xpos2)%1300-700
-      car9.y= lane_list[1]
-
-      car10=car_type2.get_rect()
-      car10.x=(1500+xpos2)%1500-900
-      car10.y= lane_list[1]
+##      car9=car_type2.get_rect()
+##      car9.x=(1300+xpos2)%1300-700
+##      car9.y= lane_list[1]
+##
+##      car10=car_type2.get_rect()
+##      car10.x=(1500+xpos2)%1500-900
+##      car10.y= lane_list[1]
 
       car11=car_type2.get_rect()
       car11.x=(1700+xpos2)%1500-1100
@@ -161,13 +170,13 @@ def main():
       car15.x=(1400-xpos1)%2150-170
       car15.y= lane_list[2]
 
-      car16=car_type3.get_rect()
-      car16.x=(1650-xpos1)%2150-170
-      car16.y= lane_list[2]
-
-      car17=car_type3.get_rect()
-      car17.x=(1900-xpos1)%2150-170
-      car17.y= lane_list[2]
+##      car16=car_type3.get_rect()
+##      car16.x=(1650-xpos1)%2150-170
+##      car16.y= lane_list[2]
+##
+##      car17=car_type3.get_rect()
+##      car17.x=(1900-xpos1)%2150-170
+##      car17.y= lane_list[2]
 
       car18=car_type3.get_rect()
       car18.x=(2150-xpos1)%2150-170
@@ -264,7 +273,7 @@ def main():
       
 
       #Log and Car list
-      car_list=[car1,car2,car3,car4,car5,car6,car7,car8,car9,car10,car11,car12,car13,car14,car15,car16,car17,car18,car19,car20,car21,car22,car23,car24,car25,car26,car27,car28]
+      car_list=[car1,car2,car3,car4,car5,car6,car7,car8,car11,car12,car13,car14,car15,car18,car19,car20,car21,car22,car23,car24,car25,car26,car27,car28]
       log_list=[log1,log2,log3,log4,log5,log6,log7,log8,log9,log10]
       
 
@@ -294,8 +303,8 @@ def main():
       screen.blit(car_type2,car6)
       screen.blit(car_type2,car7)
       screen.blit(car_type2,car8)
-      screen.blit(car_type2,car9)
-      screen.blit(car_type2,car10)
+##      screen.blit(car_type2,car9)
+##      screen.blit(car_type2,car10)
       screen.blit(car_type2,car11)
       screen.blit(car_type2,car12)
 
@@ -303,8 +312,8 @@ def main():
       screen.blit(car_type3,car13)
       screen.blit(car_type3,car14)
       screen.blit(car_type3,car15)
-      screen.blit(car_type3,car16)
-      screen.blit(car_type3,car17)
+##      screen.blit(car_type3,car16)
+##      screen.blit(car_type3,car17)
       screen.blit(car_type3,car18)
 
       #Lane 4
@@ -368,6 +377,8 @@ def main():
       if frog_rect.x > 516:
          deltax=deltax-deltax
          deltay=deltay-deltay
+
+      texts(lives,50,630,"Lives:",WHITE,40)
 
       
       

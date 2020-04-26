@@ -40,6 +40,7 @@ def main():
     speed2 = 3
     speed3 = 4
     lives = 3
+    blank=''
     xpos1=0
     xpos2=0
     xpos3=0
@@ -68,8 +69,8 @@ def main():
 
     log_type2=spread_sheet.subsurface(275,268,175,57)
      
-    # Game loop.
-    while True:
+    done=False
+    while not done:
       screen.fill((0, 0, 0))
       
       for event in pygame.event.get():
@@ -81,18 +82,18 @@ def main():
         if event.type == pygame.KEYDOWN:
                 key = event.dict['key']
                 if key == pygame.K_UP:
-                    deltay-=29
+                    deltay-=31
                     for i in range(0,200,100):
                         shift+=i
                      
                 elif key == pygame.K_LEFT:
-                   deltax-=29
+                   deltax-=31
                    left=True
                 elif key == pygame.K_RIGHT:
-                   deltax+=29
+                   deltax+=31
                    left=False
                 elif key == pygame.K_DOWN:
-                    deltay+=29
+                    deltay+=31
                     for i in range(0,200,100):
                         shift+=i
                 else:
@@ -288,7 +289,9 @@ def main():
       # Draw.
 
       screen.blit(background_image,[0,0])
+      waterlist=[]
       water=pygame.draw.rect(screen, (0,0,255),(0,57,516,187))
+      waterlist.append(water)
 
 #when you blit the converted image the format is (loaded_image,converted_image)
                      
@@ -359,6 +362,7 @@ def main():
           if collide_car == i:
               deltax=deltax-deltax
               deltay=deltay-deltay
+              lives -=1
 
       collide_log=frog_rect.collidelist(log_list)
       if collide_log == 0 or collide_log == 1 or collide_log == 2:
@@ -377,6 +381,22 @@ def main():
       if frog_rect.x > 516:
          deltax=deltax-deltax
          deltay=deltay-deltay
+
+      water_collide=frog_rect.collidelist(waterlist)
+      #if water_collide==0:
+          #deltax=deltax-deltax
+          #deltay=deltay-deltay
+          #lives -=1
+
+      if lives <= 0:
+          texts(blank,140,340,"GAME OVER",(255,0,0),60)
+          done= True
+      
+      if frog_rect.y <= 50:
+          done=True
+          texts(blank,160,340,"Winner",(0,255,0),60)
+          
+      
 
       texts(lives,50,630,"Lives:",WHITE,40)
 
